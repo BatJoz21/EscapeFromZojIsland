@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Ground
+  - Enemies
+  - Hazards
   layers:
   - Default
   - TransparentFX
@@ -11,13 +14,13 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Ground
+  - Ladder
+  - Player
+  - Middleground
+  - Bouncing
+  - Enemies
+  - Hazards
   - 
   - 
   - 
@@ -44,6 +47,18 @@ TagManager:
   - name: Backgrounds
     uniqueID: 1791080121
     locked: 0
+  - name: Hazards
+    uniqueID: 923503183
+    locked: 0
   - name: Platforms
     uniqueID: 3987360707
+    locked: 0
+  - name: Ladders
+    uniqueID: 2785260361
+    locked: 0
+  - name: Enemies
+    uniqueID: 579196905
+    locked: 0
+  - name: Player
+    uniqueID: 1202159973
     locked: 0
