@@ -20,6 +20,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpSpeed = 5.0f;
     [SerializeField] private float climbSpeed = 5.0f;
     [SerializeField] private Vector2 deathKick = new Vector2(0f, 10f);
+    [SerializeField] private Transform gun;
+    [SerializeField] private GameObject bullet;
 
     void Awake()
     {
@@ -75,6 +77,12 @@ public class PlayerMovement : MonoBehaviour
                 anim.SetBool("isJumping", true);
             }
         }
+    }
+
+    private void OnFire(InputValue value)
+    {
+        if (!isAlive) { return; }
+        Instantiate(bullet, gun.position, transform.rotation);
     }
 
     private void ClimbingLadder()
