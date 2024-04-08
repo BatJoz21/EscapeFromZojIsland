@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     private int ladderLayerMask;
     private float playerGravity;
     private bool isAlive = true;
+    private GameSessions gameSessions;
 
     [SerializeField] private float runSpeed = 5.0f;
     [SerializeField] private float jumpSpeed = 5.0f;
@@ -22,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Vector2 deathKick = new Vector2(0f, 10f);
     [SerializeField] private Transform gun;
     [SerializeField] private GameObject bullet;
+    [SerializeField] private AudioClip bulletSfx;
 
     void Awake()
     {
@@ -29,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
         anim = GetComponent<Animator>();
         capsuleCollider = GetComponent<CapsuleCollider2D>();
         boxCollider = GetComponent<BoxCollider2D>();
+        gameSessions = FindObjectOfType<GameSessions>();
     }
 
     void Start()
@@ -44,10 +47,6 @@ public class PlayerMovement : MonoBehaviour
             Run();
             FlipSprite();
             ClimbingLadder();
-        }
-        else
-        {
-            Death();
         }
     }
 
@@ -82,6 +81,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnFire(InputValue value)
     {
         if (!isAlive) { return; }
+        AudioSource.PlayClipAtPoint(bulletSfx, Camera.main.transform.position);
         Instantiate(bullet, gun.position, transform.rotation);
     }
 
@@ -134,14 +134,10 @@ public class PlayerMovement : MonoBehaviour
             if (isAlive)
             {
                 isAlive = false;
+                anim.SetTrigger("Dead");
                 rb2d.velocity = deathKick;
+                gameSessions.ProcessPlayerDeath();
             }
-            isAlive = false;
         }
-    }
-
-    private void Death()
-    {
-        anim.SetTrigger("Dead");
     }
 }
